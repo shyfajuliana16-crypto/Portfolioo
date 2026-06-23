@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyfa Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+     <link rel="shortcut icon" href="WhatsApp Image 2026-06-23 at 00.38.30.jpeg" type="image/x-icon">
+     
+    <style>
+        /* ==========================================================================
+           1. RESET & BASIC STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-image: linear-gradient(rgba(24, 18, 31, 0.45), rgba(24, 18, 31, 0.75)), 
+                              url('pngtree-portfolio-memphis-playful-abstract-pink-image_593412.jpg');
+            background-size: cover;
+            background-position: center top;
+            background-attachment: fixed;
+            color: #ffffff;
+            overflow-x: hidden;
+            
+            opacity: 0;
+            filter: blur(10px);
+            transform: scale(1.01);
+            transition: opacity 1s ease-out, filter 1s ease-out, transform 1s ease-out;
+        }
+
+        body.halaman-siap {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1);
+        }
+
+        /* ==========================================================================
+           2. NAVIGATION BAR
+           ========================================================================== */
+        .nav-container {
+            padding: 10px 4% 0 4%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            background: rgba(30, 24, 40, 0.7);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #ffd700, #ff758c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #ff758c, #ffd700);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ==========================================================================
+           3. MAIN LAYOUT
+           ========================================================================== */
+        .main-wrapper {
+            max-width: 1100px;
+            margin: 95px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .shyfa-card {
+            background: rgba(30, 24, 40, 0.75);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+
+        .section-title span {
+            background: linear-gradient(90deg, #ff758c, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==========================================================================
+           4. ABOUT ME SECTION & TYPING EFFECT
+           ========================================================================== */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 220px;
+            height: 280px;
+            margin: 0 auto;
+        }
+
+        .profile-border-frame {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ff758c;
+            border-radius: 20px;
+            z-index: 1;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .profile-wrapper:hover .profile-img {
+            transform: translate(-10px, -10px);
+        }
+
+        .profile-wrapper:hover .profile-border-frame {
+            transform: translate(10px, 10px);
+            border-color: #ffd700;
+        }
+
+        .about-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            min-height: 2.6rem; /* Mencegah konten melompat saat teks kosong */
+        }
+
+        /* Mewarnai teks ketikan */
+        #typing-text {
+            background: linear-gradient(45deg, #ffd700, #ff758c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Efek kursor berkedip */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #ff758c;
+            margin-left: 4px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .about-text .tagline {
+            font-size: 0.9rem;
+            color: #ff758c;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+        }
+
+        /* ==========================================================================
+           5. SKILLS SECTION
+           ========================================================================== */
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 60px 150px 1fr;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 15px 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .skill-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(8px);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .skill-icon-box {
+            font-size: 2rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .skill-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .skill-explanation {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            padding-left: 20px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .fa-file-word { color: #4391ea; }
+        .fa-file-excel { color: #3ca765; }
+        .fa-file-powerpoint { color: #f35d43; }
+        .fa-html5 { color: #f16529; }
+        .fa-css3-alt { color: #2965f1; }
+        .fa-js { color: #f7df1e; }
+
+        /* ==========================================================================
+           6. CONTACT SECTION
+           ========================================================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-shyfa-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 25px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .contact-shyfa-card i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ff758c, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .contact-shyfa-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-shyfa-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .contact-shyfa-card:hover {
+            background: rgba(255, 117, 140, 0.08);
+            border-color: rgba(255, 117, 140, 0.3);
+            transform: translateY(-4px);
+        }
+
+        /* ==========================================================================
+           7. FLOATING BACK TO TOP BUTTON
+           ========================================================================== */
+        .btn-kembali {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff758c, #ffd700);
+            border: none;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4);
+            z-index: 2000;
+            
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-kembali.muncul {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .btn-kembali:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 117, 140, 0.6);
+        }
+
+        /* ==========================================================================
+           8. RESPONSIVE LAYOUT
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .nav-container { padding: 8px 8px 0 8px; }
+            nav { padding: 12px 15px; }
+            .nav-links { gap: 15px; }
+            .main-wrapper { margin-top: 85px; }
+            .about-layout { grid-template-columns: 1fr; text-align: center; gap: 25px; }
+            .skill-row { grid-template-columns: 1fr; text-align: center; gap: 8px; }
+            .skill-icon-box { justify-content: center; }
+            .skill-explanation { padding-left: 0; border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 8px; }
+            .shyfa-card { padding: 25px 15px; }
+            .btn-kembali { bottom: 25px; left: 25px; width: 45px; height: 45px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-container">
+        <nav id="top-target">
+            <div class="nav-logo">PORTFOLIO</div>
+            <ul class="nav-links">
+                <li><a href="#about-me">About Me</a></li>
+                <li><a href="#my-skills">Skills</a></li>
+                <li><a href="#contact-me">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <button class="btn-kembali" id="tombolKembali" onclick="keAtas()" title="Kembali ke Atas">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <div class="main-wrapper">
+
+        <section id="about-me" class="shyfa-card">
+            <div class="about-layout">
+                <div class="profile-wrapper">
+                    <div class="profile-border-frame"></div>
+                    <img src="WhatsApp Image 2026-06-23 at 00.38.30.jpeg" alt="Foto Profil" class="profile-img">
+                </div>
+                <div class="about-text">
+                    <p class="tagline">Welcome to My Professional Space</p>
+                    <!-- Ditambahkan id dan span kursor untuk efek ketikan -->
+                    <h1><span id="typing-text"></span><span class="cursor">&nbsp;</span></h1>
+                    <p>Saya shyfa berdedikasi tinggi untuk mengintegrasikan efisiensi manajemen data perkantoran dengan keindahan arsitektur digital web. Berbekal keterampilan pengelolaan sistem administrasi serta dasar pemrograman web, saya siap menghadirkan solusi kerja yang rapi, adaptif, terstruktur, dan berkinerja tinggi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- [Bagian SKILLS dan CONTACT tetap sama seperti kode sebelumnya] -->
+        <section id="my-skills" class="shyfa-card">
+            <h2 class="section-title">Keahlian & <span>Alat Kerja</span></h2>
+            <div class="skills-container">
+                <div class="skill-row">
+                    <div class="skill-icon-box"><i class="fa-solid fa-file-word"></i></div>
+                    <div class="skill-title">MS Word</div>
+                    <div class="skill-explanation">Mahir dalam menyusun korespondensi bisnis formal, pemformatan dokumen laporan korporat, pembuatan template proposal, serta sistem otomatisasi surat massal (*mail merge*).</div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-icon-box"><i class="fa-solid fa-file-excel"></i></div>
+                    <div class="skill-title">MS Excel</div>
+                    <div class="skill-explanation">Menguasai pemrosesan data analitik, penerapan formula logika/matematika kompleks, pembuatan pivot table, laporan keuangan terstruktur, serta visualisasi tren data lewat chart dinamis.</div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-icon-box"><i class="fa-solid fa-file-powerpoint"></i></div>
+                    <div class="skill-title">MS PowerPoint</div>
+                    <div class="skill-explanation">Mampu mendesain slide presentasi premium yang komunikatif, menarik secara visual, interaktif, serta menggunakan transisi halus untuk pemaparan ide bisnis profesional.</div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-icon-box"><i class="fa-brands fa-html5"></i></div>
+                    <div class="skill-title">HTML5</div>
+                    <div class="skill-explanation">Memahami konstruksi halaman website menggunakan standar kode semantik modern guna memastikan kerangka website bersih, kokoh, dan ramah optimasi SEO.</div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-icon-box"><i class="fa-brands fa-css3-alt"></i></div>
+                    <div class="skill-title">CSS3</div>
+                    <div class="skill-explanation">Mampu merancang desain antarmuka web yang estetik, responsif di berbagai ukuran perangkat, serta menerapkan teknik tata letak modern, pewarnaan gradasi, dan efek kaca transparan.</div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-icon-box"><i class="fa-brands fa-js"></i></div>
+                    <div class="skill-title">JavaScript</div>
+                    <div class="skill-explanation">Mengimplementasikan interaktivitas dinamis pada halaman web, manipulasi elemen dokumen (DOM), penanganan aksi tombol kustom, serta logika fungsional dasar.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-me" class="shyfa-card">
+            <h2 class="section-title">Mari <span>Terhubung</span></h2>
+            <div class="contact-grid">
+                <a href="mailto:shyfajuliana16@gmail.com" class="contact-shyfa-card">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h3>Surel Resmi</h3>
+                    <p>shyfajuliana16@gmail.com</p>
+                </a>
+                <a href="https://vt.tiktok.com/ZSCdfHSty/" target="_blank" class="contact-shyfa-card">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <h3>TikTok</h3>
+                    <p>shyfajuliana_</p>
+                </a>
+                <a href="https://www.instagram.com/shyfajuliana" target="_blank" class="contact-shyfa-card">
+                    <i class="fa-brands fa-instagram"></i>
+                    <h3>Instagram</h3>
+                    <p>ShyfaJulianaPutri</p>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const btnKembali = document.getElementById("tombolKembali");
+
+        // 1. Animasi halus saat halaman pertama kali dibuka
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+                document.body.classList.add("halaman-siap");
+            }, 30);
+            
+            // Panggil fungsi efek mengetik setelah halaman siap
+            typeEffect();
+        });
+
+        // JAVASCRIPT: EFEK KETIKAN UTK H1
+        const words = ["SHYFA JULIANA PUTRI", "202508093", "SIA47", "Web Designer."];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 150; // Kecepatan mengetik (ms)
+        const erasingSpeed = 40; // Kecepatan menghapus (ms)
+        const delayBetweenWords = 2000; // Jeda waktu diam saat kata selesai diketik (ms)
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            const typingElement = document.getElementById("typing-text");
+
+            if (isDeleting) {
+                // Proses menghapus karakter
+                typingElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // Proses mengetik karakter
+                typingElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            // Atur logika pergantian kata
+            if (!isDeleting && charIndex === currentWord.length) {
+                // Jika kata selesai diketik, beri jeda sebelum menghapus
+                isDeleting = true;
+                setTimeout(typeEffect, delayBetweenWords);
+            } else if (isDeleting && charIndex === 0) {
+                // Jika kata selesai dihapus, pindah ke kata berikutnya
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                // Lanjutkan proses mengetik/menghapus secara berkala
+                setTimeout(typeEffect, isDeleting ? erasingSpeed : typingSpeed);
+            }
+        }
+
+        // 2. Deteksi gulir layar (scroll) untuk memunculkan tombol kembali
+        window.onscroll = function() {
+            logikaTombol();
+        };
+
+        function logikaTombol() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnKembali.classList.add("muncul");
+            } else {
+                btnKembali.classList.remove("muncul");
+            }
+        }
+
+        // 3. Aksi kembali ke atas secara halus
+        function keAtas() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
